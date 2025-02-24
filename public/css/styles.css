@@ -58,7 +58,7 @@ body {
 .steam {
   width: 20px;
   height: 40px;
-  background: rgba(255, 99, 71, 0.2);
+  background: rgba(255, 99, 71, 0.5);
   border-radius: 50%;
   position: absolute;
   top: 30px;

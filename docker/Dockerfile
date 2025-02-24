@@ -1,5 +1,5 @@
 # Sử dụng Node.js phiên bản mới nhất LTS
-FROM node:18
+FROM node:10-alpine
 
 # Đặt thư mục làm việc trong container
 WORKDIR /app

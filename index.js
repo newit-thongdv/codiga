@@ -5,10 +5,13 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const viewsPath = path.join(__dirname, 'views');
+const publicPath = path.join(__dirname, 'public')
 
 const app = express();
 const router = express.Router();
-const viewsPath = path.join(__dirname, 'views');
+app.use(express.static(publicPath));
+
 const port = 3030;
 
 router.use((req, res, next) => {
@@ -20,7 +23,6 @@ router.get('/', (req, res) => {
   res.sendFile(path.join(viewsPath, 'index.html'));
 });
 
-app.use(express.static(viewsPath));
 app.use('/', router);
 
 app.listen(port, async () => {

@@ -2,7 +2,7 @@
 body {
   font-family: 'Arial, sans-serif';
   margin: 0;
-  background-color: #7e2323;
+  background-color: #f9f2e7;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,14 +16,14 @@ body {
 
 .title {
   font-size: 3rem;
-  color: #fff;
+  color: #000;
   margin-bottom: 0.5rem;
   animation: fadeIn 2s ease-in-out;
 }
 
 .subtitle {
   font-size: 1.5rem;
-  color: #fff;
+  color: #000;
   margin-bottom: 2rem;
   animation: fadeIn 2s ease-in-out 0.5s;
 }

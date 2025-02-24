@@ -1,23 +1,29 @@
-const express = require('express');
+import express from 'express';
+import open from 'open';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 const router = express.Router();
-
-const path = __dirname + '/views/';
+const viewsPath = path.join(__dirname, 'views');
 const port = 3030;
 
-router.use(function (req,res,next) {
+router.use((req, res, next) => {
   console.log('/' + req.method);
   next();
 });
 
-router.get('/', function(req,res){
-  res.sendFile(path + 'index.html');
+router.get('/', (req, res) => {
+  res.sendFile(path.join(viewsPath, 'index.html'));
 });
 
-
-app.use(express.static(path));
+app.use(express.static(viewsPath));
 app.use('/', router);
 
-app.listen(port, function () {
-  console.log('Example app listening on port!'+ port)
-})
+app.listen(port, async () => {
+  console.log(`Server running at http://localhost:${port}`);
+  await open(`http://localhost:${port}`);
+});

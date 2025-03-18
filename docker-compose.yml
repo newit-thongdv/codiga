@@ -1,8 +1,26 @@
 version: '3.8'
 
 services:
+  mysql:
+    image: mysql:latest
+    container_name: codiga-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: codiga
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
   app:
-    container_name: codiga
+    container_name: codiga_app
     build:
       context: .
       dockerfile: docker/Dockerfile
@@ -11,6 +29,15 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    environment:
-      - NODE_ENV=development
-    command: ["node", "index.js"]
+    networks:
+      - app_network
+    depends_on:
+      mysql:
+        condition: service_healthy 
+  
+volumes:
+  mysql_data:
+
+networks:
+  app_network:
+    driver: bridge

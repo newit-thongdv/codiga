@@ -12,7 +12,6 @@ substitutions:
   _BRAND: 'test'
 
 steps:
-
   # Upload to VM step
   - name: 'gcr.io/cloud-builders/gcloud'
     id: 'upload-to-vm'

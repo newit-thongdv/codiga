@@ -6,13 +6,10 @@ substitutions:
   _BACKUP_DIR: "/home/esthe-one/esthe-build/backup_${BUILD_ID}"
   _LOG_FILE: "/home/esthe-one/esthe-build/deploy_${BUILD_ID}.log"
   _SUCCESS_FILE: "/home/esthe-one/esthe-build/deploy_success_${BUILD_ID}"
-  _HTTP_PROXY: "http://172.31.32.2:3128"
-  _NO_PROXY: "metadata.google.internal,localhost,127.0.0.1"
-  _REPO_NAME: "newit_test-esthe-one"
-  _BRAND: 'test'
 
 steps:
   # Upload to VM step
+  
   - name: 'gcr.io/cloud-builders/gcloud'
     id: 'upload-to-vm'
     entrypoint: 'bash'

@@ -1,5 +1,5 @@
 substitutions:
-  _SSH_TARGET: "esthe-one@esthe-one-work-vm"
+  _SSH_TARGET: "esthe-one@esthe-one-instance-group-2d5q"
   _ZONE: "asia-northeast1-a"
   _DEPLOY_DIR: "/home/esthe-one/public_html"
   _BUILD_DIR: "/home/esthe-one/esthe-build/build_${BUILD_ID}"

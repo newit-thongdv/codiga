@@ -1,0 +1,35 @@
+substitutions:
+  _SSH_TARGET: "esthe-one@esthe-one-work-vm"
+  _ZONE: "asia-northeast1-a"
+  _DEPLOY_DIR: "/home/esthe-one/public_html"
+  _BUILD_DIR: "/home/esthe-one/esthe-build/build_${BUILD_ID}"
+  _BACKUP_DIR: "/home/esthe-one/esthe-build/backup_${BUILD_ID}"
+  _LOG_FILE: "/home/esthe-one/esthe-build/deploy_${BUILD_ID}.log"
+  _SUCCESS_FILE: "/home/esthe-one/esthe-build/deploy_success_${BUILD_ID}"
+  _HTTP_PROXY: "http://172.31.32.2:3128"
+  _NO_PROXY: "metadata.google.internal,localhost,127.0.0.1"
+  _REPO_NAME: "newit_test-esthe-one"
+  _BRAND: 'test'
+
+steps:
+
+  # Upload to VM step
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'upload-to-vm'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        set -e
+        echo "Creating build dir on VM..."
+        gcloud compute ssh ${_SSH_TARGET} --zone=${_ZONE} --internal-ip --command="mkdir -p ${_BUILD_DIR} && chmod 755 ${_BUILD_DIR}"
+
+        echo "Uploading source from /workspace to ${_BUILD_DIR}..."
+        gcloud compute scp --recurse /workspace/* ${_SSH_TARGET}:${_BUILD_DIR} --zone=${_ZONE} --internal-ip
+
+logsBucket: 'gs://codebuild-estheone'
+options:
+  pubsubTopic: projects/responsive-cab-457003-a2/topics/tp-build-result-notifier-dev
+  pool:
+    name: >-
+      projects/responsive-cab-457003-a2/locations/asia-northeast1/workerPools/build-worker-pool

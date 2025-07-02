@@ -12,23 +12,6 @@ substitutions:
   _BRAND: 'test'
 
 steps:
-  # Create proxy setup script
-  - name: 'gcr.io/cloud-builders/gcloud'
-    id: 'create-proxy-script'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        cat <<EOF > setup_proxy.sh
-        #!/bin/bash
-        set -e
-        export http_proxy=${_HTTP_PROXY}
-        export https_proxy=${_HTTP_PROXY}
-        export no_proxy=${_NO_PROXY}
-        echo "Using proxy at \$http_proxy"
-        EOF
-        chmod +x setup_proxy.sh
-        echo "Created setup_proxy.sh"
 
   # Upload to VM step
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -38,8 +21,6 @@ steps:
       - '-c'
       - |
         set -e
-        source ./setup_proxy.sh
-
         echo "Creating build dir on VM..."
         gcloud compute ssh ${_SSH_TARGET} --zone=${_ZONE} --internal-ip --command="mkdir -p ${_BUILD_DIR} && chmod 755 ${_BUILD_DIR}"
 

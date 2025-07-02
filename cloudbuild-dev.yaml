@@ -12,6 +12,7 @@ substitutions:
   _BRAND: 'test'
 
 steps:
+
   # Upload to VM step
   - name: 'gcr.io/cloud-builders/gcloud'
     id: 'upload-to-vm'
@@ -29,3 +30,6 @@ steps:
 logsBucket: 'gs://codebuild-estheone'
 options:
   pubsubTopic: projects/responsive-cab-457003-a2/topics/tp-build-result-notifier-dev
+  pool:
+    name: >-
+      projects/responsive-cab-457003-a2/locations/asia-northeast1/workerPools/build-worker-pool

@@ -10,6 +10,7 @@ substitutions:
   _NO_PROXY: "metadata.google.internal,localhost,127.0.0.1"
   _REPO_NAME: "newit_test-esthe-one"
   _BRAND: 'test'
+
 steps:
   # Upload to VM step
   - name: 'gcr.io/cloud-builders/gcloud'
